@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "Creating a new gist when test script is present",
+			"name": "Creating a new gist and fulfill the test script conditions",
 			"event": [
 				{
 					"listen": "test",
@@ -28,7 +28,7 @@
 				}
 			],
 			"request": {
-				"url": "https://api.github.com/gists",
+				"url": "{{url}}/gists",
 				"method": "POST",
 				"header": [
 					{
@@ -71,12 +71,9 @@
 			],
 			"request": {
 				"url": {
-					"raw": "https://api.github.com/users/:username/gists",
-					"protocol": "https",
+					"raw": "{{url}}/users/:username/gists",
 					"host": [
-						"api",
-						"github",
-						"com"
+						"{{url}}"
 					],
 					"path": [
 						"users",
@@ -147,12 +144,9 @@
 			],
 			"request": {
 				"url": {
-					"raw": "https://api.github.com/users/:username/gists",
-					"protocol": "https",
+					"raw": "{{url}}/users/:username/gists",
 					"host": [
-						"api",
-						"github",
-						"com"
+						"{{url}}"
 					],
 					"path": [
 						"users",
@@ -201,12 +195,9 @@
 			],
 			"request": {
 				"url": {
-					"raw": "https://api.github.com/gists/:gist_id",
-					"protocol": "https",
+					"raw": "{{url}}/gists/:gist_id",
 					"host": [
-						"api",
-						"github",
-						"com"
+						"{{url}}"
 					],
 					"path": [
 						"gists",
@@ -259,12 +250,9 @@
 			],
 			"request": {
 				"url": {
-					"raw": "https://api.github.com/gists/:gist_id",
-					"protocol": "https",
+					"raw": "{{url}}/gists/:gist_id",
 					"host": [
-						"api",
-						"github",
-						"com"
+						"{{url}}"
 					],
 					"path": [
 						"gists",
@@ -313,12 +301,9 @@
 			],
 			"request": {
 				"url": {
-					"raw": "https://api.github.com/gists/:gist_id/commits",
-					"protocol": "https",
+					"raw": "{{url}}/gists/:gist_id/commits",
 					"host": [
-						"api",
-						"github",
-						"com"
+						"{{url}}"
 					],
 					"path": [
 						"gists",
@@ -365,12 +350,9 @@
 			],
 			"request": {
 				"url": {
-					"raw": "https://api.github.com/gists/:gist_id/star",
-					"protocol": "https",
+					"raw": "{{url}}/gists/:gist_id/star",
 					"host": [
-						"api",
-						"github",
-						"com"
+						"{{url}}"
 					],
 					"path": [
 						"gists",
@@ -421,12 +403,9 @@
 			],
 			"request": {
 				"url": {
-					"raw": "https://api.github.com/gists/:gist_id/star",
-					"protocol": "https",
+					"raw": "{{url}}/gists/:gist_id/star",
 					"host": [
-						"api",
-						"github",
-						"com"
+						"{{url}}"
 					],
 					"path": [
 						"gists",
@@ -473,12 +452,9 @@
 			],
 			"request": {
 				"url": {
-					"raw": "https://api.github.com/gists/:gist_id/star",
-					"protocol": "https",
+					"raw": "{{url}}/gists/:gist_id/star",
 					"host": [
-						"api",
-						"github",
-						"com"
+						"{{url}}"
 					],
 					"path": [
 						"gists",
@@ -509,7 +485,7 @@
 		{
 			"name": "GET a list of starred gists",
 			"request": {
-				"url": "https://api.github.com/gists/starred",
+				"url": "{{url}}/gists/starred",
 				"method": "GET",
 				"header": [
 					{
@@ -540,12 +516,9 @@
 			],
 			"request": {
 				"url": {
-					"raw": "https://api.github.com/gists/:gist_id",
-					"protocol": "https",
+					"raw": "{{url}}/gists/:gist_id",
 					"host": [
-						"api",
-						"github",
-						"com"
+						"{{url}}"
 					],
 					"path": [
 						"gists",
