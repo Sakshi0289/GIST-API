@@ -1,0 +1,576 @@
+{
+	"variables": [],
+	"info": {
+		"name": "TEST GIST API",
+		"_postman_id": "3804808b-1888-c8ac-5796-95e8002d2f46",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Creating a new gist when test script is present",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"// response body should contain string \"Sakshi\"",
+							"tests[\"Body matches string\"] = responseBody.has(\"Sakshi\");",
+							"//Checking the header and the response code",
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://api.github.com/gists",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"Creating a gist by Sakshi\",\r\n  \"public\": true,\r\n  \"files\": {\r\n    \"test_sakshi.rb\": {\r\n      \"content\": \"class HelloWorld\\n   def initialize(name)\\n      @name = name.capitalize\\n   end\\n   def sayHi\\n      puts \\\"Hello !\\\"\\n   end\\nend\\n\\nhello = HelloWorld.new(\\\"World\\\")\\nhello.sayHi\"\r\n    }}}"
+				},
+				"description": "Creating a new gist and checking the response code as well as contetn type and the body"
+			},
+			"response": []
+		},
+		{
+			"name": "Getting a list of gists for a particular user by GET method",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"//Checking whether response time is less than 1000ms",
+							"tests[\"Response time is less than 1000ms\"] = responseTime < 1000;",
+							"//Checking status code string is OK",
+							"tests[\"Status code name has string\"] = responseCode.name.has(\"OK\");",
+							"//Checking the response code",
+							"tests[\"Successful POST request\"] = responseCode.code === 200 || responseCode.code === 202;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/users/:username/gists",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						":username",
+						"gists"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "username",
+							"value": "Sakshi0289"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "User name: Sakshi0289\n\nFor this user all the gists are displayed."
+			},
+			"response": []
+		},
+		{
+			"name": "Getting a list of gists and verifying the response header by writing a test script",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//Checking wheher the response header has following values:\r",
+							"\r",
+							"pass = true;\r",
+							"fail = false;\r",
+							"\r",
+							"if (responseCode.code === 201 || responseCode.code === 200) {\r",
+							"    tests[\"Request Succesfully Sent\"] = pass;\r",
+							"\r",
+							"    headers = {\r",
+							"        \"strict-transport-security\":\"max-age=31536000; includeSubdomains; preload\",\r",
+							"        \"x-ratelimit-limit\":\"5000\",\r",
+							"        \"x-xss-protection\":\"1; mode=block\",\r",
+							"        \"server\":\"GitHub.com\",\r",
+							"        \"x-github-media-type\":\"github.v3; format=json\",\r",
+							"        \"x-oauth-scopes\":\"admin:gpg_key, admin:org, admin:org_hook, admin:public_key, admin:repo_hook, delete_repo, gist, notifications, repo, user, write:discussion\"\r",
+							"    };\r",
+							"\r",
+							"    for (var i in headers) {\r",
+							"        result = postman.getResponseHeader(i);\r",
+							"        if (headers[i] === result)\r",
+							"            tests[i + \" header value is present\"] = pass;\r",
+							"        else\r",
+							"            tests[i + \" header value is not present\"] = fail;\r",
+							"\r",
+							"    }\r",
+							" \r",
+							"\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/users/:username/gists",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						":username",
+						"gists"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "username",
+							"value": "Sakshi0289"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "We get a list of Gists and response headers in the response body.\n\nWriting a test script to validate the header we get in response.\n\nPlease check the test script section.\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Updating a gist using PATCH method",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// This is the new file added. Checking whether it is edited and updated or not",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"test_newaddition\");",
+							"",
+							"",
+							"",
+							"tests[\"Status code name has string\"] = responseCode.name.has(\"OK\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/gists/:gist_id",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						":gist_id"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "3d0e0b9da415161e2ba1f6853c53155b"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n  \"description\": \"Editing of gist\",\r\n  \"public\": true,\r\n  \"files\": {\r\n    \"test_newaddition.py\": {\r\n      \"content\": \"class HelloWorld\\n   def initialize(name)\\n      @name = name.capitalize\\n   end\\n   def sayHi\\n      puts \\\"Hello !\\\"\\n   end\\nend\\n\\nhello = HelloWorld.new(\\\"World\\\")\\nhello.sayHi\"\r\n    }}}"
+				},
+				"description": "For a particular gist id , we are updating the GIST and adding one more file named as test_newaddition"
+			},
+			"response": []
+		},
+		{
+			"name": "Deleting a GIST using DELETE Method",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// checking the DELETE response code",
+							"",
+							"tests[\"Successful DELETE request\"] = responseCode.code === 204",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/gists/:gist_id",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						":gist_id"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "1a5fc2f2e28780eb63cdf12cd3e4510b"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "By passing the GIST ID we are deleting a gist present in the git"
+			},
+			"response": []
+		},
+		{
+			"name": "Using the GET method to check when a particular Gist was committed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"// checking that the gist committed date is present",
+							"tests[\"Verify that body has string present\"] = responseBody.has(\"committed_at\");",
+							"",
+							"//checking the response string and code ",
+							"tests[\"Content-Type is present in the resonse body\"] = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Successful GET request\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/gists/:gist_id/commits",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						":gist_id",
+						"commits"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "ee29dcea7cc40a913ff4652e810cbef6"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "We pass Gist Id and Auth token and check at what time the gist was committed in the response body.\n\nPlease check test script for extra validations"
+			},
+			"response": []
+		},
+		{
+			"name": "To PUT a star to a GIST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//checking that gist is successfully starred or not",
+							"",
+							"tests[\"Status code is 204 when we star a gist\"] = responseCode.code === 204;",
+							"",
+							"tests[\"Successful PUT request\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/gists/:gist_id/star",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						":gist_id",
+						"star"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "3d0e0b9da415161e2ba1f6853c53155b"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Adding a star to a GIST using PUT method.\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "To check whether a gist is starred  or unstarred using GET method",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//if gist is starred send this code",
+							"",
+							"tests[\"Status code is 204-No Content if Gist is starred\"] = responseCode.code === 204;",
+							"",
+							"",
+							"",
+							"// if gist is not starred send this code",
+							"tests[\"Status code is 404-Not Found if Gist is unstarred\"] = responseCode.code === 404;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/gists/:gist_id/star",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						":gist_id",
+						"star"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "3d0e0b9da415161e2ba1f6853c53155b"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "By passing gist id we are checking that a particular gist is starred or not.\n\nPlease see the test script added to it"
+			},
+			"response": []
+		},
+		{
+			"name": "To DELETE the star added to a gist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"// to check tthat gist is successfully unstarred",
+							"tests[\"Status code is 204 when we unstar a gist\"] = responseCode.code === 204;",
+							"",
+							"tests[\"Successful DELETE request\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/gists/:gist_id/star",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						":gist_id",
+						"star"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "3d0e0b9da415161e2ba1f6853c53155b"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "In this we delete a star added to gist i.e we make it unstarred using DELETE method\n\nWe pass GIST id to it and the code should be 204 no Content"
+			},
+			"response": []
+		},
+		{
+			"name": "GET a list of starred gists",
+			"request": {
+				"url": "https://api.github.com/gists/starred",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "In this we are finding a list of starred gists"
+			},
+			"response": []
+		},
+		{
+			"name": "GET a gist by gist id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//passing the gist id to check we get info for that gist",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"ee29dcea7cc40a913ff4652e810cbef6\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/gists/:gist_id",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						":gist_id"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "ee29dcea7cc40a913ff4652e810cbef6"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "In this we find info abouta particular gist by gist id"
+			},
+			"response": []
+		}
+	]
+}
