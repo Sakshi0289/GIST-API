@@ -33,12 +33,12 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					},
 					{
 						"key": "Content-Type",
-						"value": "application/json",
+						"value": "{{Content-Type}}",
 						"description": ""
 					}
 				],
@@ -92,7 +92,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					}
 				],
@@ -157,7 +157,7 @@
 					"variable": [
 						{
 							"key": "username",
-							"value": "Sakshi0289"
+							"value": "{{username}}"
 						}
 					]
 				},
@@ -165,7 +165,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					}
 				],
@@ -215,12 +215,12 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					},
 					{
 						"key": "Content-Type",
-						"value": "application/json",
+						"value": "{{Content-Type}}",
 						"description": ""
 					}
 				],
@@ -270,7 +270,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					}
 				],
@@ -322,7 +322,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					}
 				],
@@ -371,7 +371,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					}
 				],
@@ -424,7 +424,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					}
 				],
@@ -473,7 +473,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					}
 				],
@@ -490,7 +490,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					}
 				],
@@ -536,12 +536,54 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "token 47473a9db1885027272ab8b8122ed6dc62b3f41c",
+						"value": "{{Authorization}}",
 						"description": ""
 					}
 				],
 				"body": {},
 				"description": "In this we find info abouta particular gist by gist id"
+			},
+			"response": []
+		},
+		{
+			"name": "Forking a gist ID using POST",
+			"request": {
+				"url": {
+					"raw": "{{url}}/gists/:gist_id/fork",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"gists",
+						":gist_id",
+						"fork"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "36d6694c433fd420e45c614b62498e96"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"Creating a gist by Sakshi\",\r\n  \"public\": true,\r\n  \"files\": {\r\n    \"test_sakshi.rb\": {\r\n      \"content\": \"class HelloWorld\\n   def initialize(name)\\n      @name = name.capitalize\\n   end\\n   def sayHi\\n      puts \\\"Hello !\\\"\\n   end\\nend\\n\\nhello = HelloWorld.new(\\\"World\\\")\\nhello.sayHi\"\r\n    }}}"
+				},
+				"description": "To duplicate a gist belonging to somebody else.\n"
 			},
 			"response": []
 		}
