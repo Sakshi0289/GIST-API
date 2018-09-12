@@ -38,13 +38,13 @@
 					},
 					{
 						"key": "Content-Type",
-						"value": "{{Content-Type}}",
+						"value": "application/json",
 						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"description\": \"Creating a gist by Sakshi\",\r\n  \"public\": true,\r\n  \"files\": {\r\n    \"test_sakshi.rb\": {\r\n      \"content\": \"class HelloWorld\\n   def initialize(name)\\n      @name = name.capitalize\\n   end\\n   def sayHi\\n      puts \\\"Hello !\\\"\\n   end\\nend\\n\\nhello = HelloWorld.new(\\\"World\\\")\\nhello.sayHi\"\r\n    }}}"
+					"raw": "{\r\n  \"description\": \"Creating a private gist by Sakshi to be deleted\",\r\n  \"public\": true,\r\n  \"files\": {\r\n    \"test_edit.rb\": {\r\n      \"content\": \"class HelloWorld\\n   def initialize(name)\\n      @name = name.capitalize\\n   end\\n   def sayHi\\n      puts \\\"Hello !\\\"\\n   end\\nend\\n\\nhello = HelloWorld.new(\\\"World\\\")\\nhello.sayHi\"\r\n    }}}"
 				},
 				"description": "Creating a new gist and checking the response code as well as contetn type and the body"
 			},
@@ -84,7 +84,7 @@
 					"variable": [
 						{
 							"key": "username",
-							"value": "Sakshi0289"
+							"value": "{{username}}"
 						}
 					]
 				},
@@ -102,7 +102,7 @@
 			"response": []
 		},
 		{
-			"name": "Getting a list of gists and verifying the response header by writing a test script",
+			"name": "Getting a list of gists and validating the response header by writing a test script",
 			"event": [
 				{
 					"listen": "test",
@@ -184,7 +184,7 @@
 						"exec": [
 							"// This is the new file added. Checking whether it is edited and updated or not",
 							"",
-							"tests[\"Body matches string\"] = responseBody.has(\"test_newaddition\");",
+							"tests[\"Body contains string\"] = responseBody.has(\"test_gist_api\");",
 							"",
 							"",
 							"",
@@ -207,7 +207,7 @@
 					"variable": [
 						{
 							"key": "gist_id",
-							"value": "3d0e0b9da415161e2ba1f6853c53155b"
+							"value": "7f2fe89a6a299147cbc06f91726430a0"
 						}
 					]
 				},
@@ -220,62 +220,15 @@
 					},
 					{
 						"key": "Content-Type",
-						"value": "{{Content-Type}}",
+						"value": "application/json",
 						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "\r\n    {\r\n  \"description\": \"Editing of gist\",\r\n  \"public\": true,\r\n  \"files\": {\r\n    \"test_newaddition.py\": {\r\n      \"content\": \"class HelloWorld\\n   def initialize(name)\\n      @name = name.capitalize\\n   end\\n   def sayHi\\n      puts \\\"Hello !\\\"\\n   end\\nend\\n\\nhello = HelloWorld.new(\\\"World\\\")\\nhello.sayHi\"\r\n    }}}"
+					"raw": "\r\n    {\r\n  \"description\": \"Editing of gist by sakshi\",\r\n  \"public\": true,\r\n  \"files\": {\r\n    \"test_gist_api.py\": {\r\n      \"content\": \"class HelloWorld\\n   def initialize(name)\\n      @name = name.capitalize\\n   end\\n   def sayHi\\n      puts \\\"Hello !\\\"\\n   end\\nend\\n\\nhello = HelloWorld.new(\\\"World\\\")\\nhello.sayHi\"\r\n    }}}"
 				},
 				"description": "For a particular gist id , we are updating the GIST and adding one more file named as test_newaddition"
-			},
-			"response": []
-		},
-		{
-			"name": "Deleting a GIST using DELETE Method",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"// checking the DELETE response code",
-							"",
-							"tests[\"Successful DELETE request\"] = responseCode.code === 204",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"url": {
-					"raw": "{{url}}/gists/:gist_id",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"gists",
-						":gist_id"
-					],
-					"query": [],
-					"variable": [
-						{
-							"key": "gist_id",
-							"value": "1a5fc2f2e28780eb63cdf12cd3e4510b"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{Authorization}}",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": "By passing the GIST ID we are deleting a gist present in the git"
 			},
 			"response": []
 		},
@@ -363,7 +316,7 @@
 					"variable": [
 						{
 							"key": "gist_id",
-							"value": "3d0e0b9da415161e2ba1f6853c53155b"
+							"value": "82248cfe68553b951223058537c69241"
 						}
 					]
 				},
@@ -377,6 +330,53 @@
 				],
 				"body": {},
 				"description": "Adding a star to a GIST using PUT method.\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Deleting a GIST using DELETE Method",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// checking the DELETE response code",
+							"",
+							"tests[\"Successful DELETE request\"] = responseCode.code === 204",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "{{url}}/gists/:gist_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"gists",
+						":gist_id"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "82248cfe68553b951223058537c69241"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "By passing the GIST ID we are deleting a gist present in the git"
 			},
 			"response": []
 		},
@@ -416,7 +416,7 @@
 					"variable": [
 						{
 							"key": "gist_id",
-							"value": "3d0e0b9da415161e2ba1f6853c53155b"
+							"value": "157dc7cb3527cdbbd7b64851ead677a9"
 						}
 					]
 				},
@@ -509,7 +509,7 @@
 						"exec": [
 							"//passing the gist id to check we get info for that gist",
 							"",
-							"tests[\"Body matches string\"] = responseBody.has(\"ee29dcea7cc40a913ff4652e810cbef6\");"
+							"tests[\"Gist id is present\"] = responseBody.has(\"ee29dcea7cc40a913ff4652e810cbef6\");"
 						]
 					}
 				}
@@ -528,7 +528,7 @@
 					"variable": [
 						{
 							"key": "gist_id",
-							"value": "ee29dcea7cc40a913ff4652e810cbef6"
+							"value": "7f2fe89a6a299147cbc06f91726430a0"
 						}
 					]
 				},
@@ -570,7 +570,7 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "{{Content-Type}}",
+						"value": "application/json",
 						"description": ""
 					},
 					{
@@ -581,9 +581,446 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"description\": \"Creating a gist by Sakshi\",\r\n  \"public\": true,\r\n  \"files\": {\r\n    \"test_sakshi.rb\": {\r\n      \"content\": \"class HelloWorld\\n   def initialize(name)\\n      @name = name.capitalize\\n   end\\n   def sayHi\\n      puts \\\"Hello !\\\"\\n   end\\nend\\n\\nhello = HelloWorld.new(\\\"World\\\")\\nhello.sayHi\"\r\n    }}}"
+					"raw": ""
 				},
 				"description": "To duplicate a gist belonging to somebody else.\n"
+			},
+			"response": []
+		},
+		{
+			"name": "List all gist forks using GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//description of the gist which is forked. It validates that the gist has been forked successfully.",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"Code shared from the Rust Playground\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "{{url}}/gists/:gist_id/forks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"gists",
+						":gist_id",
+						"forks"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "36d6694c433fd420e45c614b62498e96"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "To validate that no gists are returned when we pass non existent user in parameters",
+			"request": {
+				"url": {
+					"raw": "{{url}}/users/:username/gists",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						":username",
+						"gists"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "username",
+							"value": "test346"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Pass a username as Test123 which isa non existant user. No result should be returned."
+			},
+			"response": []
+		},
+		{
+			"name": "To validate that forked gist is present in the list for a particular user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"// Playground.rs is the name of the gist which is forked. If it matches the script passes",
+							"",
+							"tests[\"Body matches forked gist file name\"] = responseBody.has(\"playground.rs\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "{{url}}/users/:username/gists",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						":username",
+						"gists"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "username",
+							"value": "Sakshi0289"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "After forking a  gist check that the gist is present in the list of gists for that particular username.\n\nValidate the test script to check that particular gist is present or not."
+			},
+			"response": []
+		},
+		{
+			"name": "Validate that you cannot fork your own gist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"// validate that we cannot fork our own gist",
+							"tests[\"Response body message\"] = responseBody.has(\"You cannot fork your own gist\");",
+							"",
+							"",
+							"",
+							"tests[\"Status code name has string\"] = responseCode.name.has(\"Unprocessable Entity\");",
+							"",
+							"tests[\"Status code is 422\"] = responseCode.code === 422;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "{{url}}/gists/:gist_id/fork",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"gists",
+						":gist_id",
+						"fork"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "08c0feffb9748c428e6d4e61d0707420"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Validating by passing the gist id we have created that we cannot fork our own gist\n\nAlso validating the test script"
+			},
+			"response": [
+				{
+					"id": "b591c1d8-559c-4e25-bec9-7ba171b2a05c",
+					"name": "Validate that you cannot fork your own gist",
+					"originalRequest": {
+						"url": {
+							"raw": "{{url}}/gists/:gist_id/fork",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"gists",
+								":gist_id",
+								"fork"
+							],
+							"query": [],
+							"variable": [
+								{
+									"key": "gist_id",
+									"value": "08c0feffb9748c428e6d4e61d0707420"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": "",
+								"warning": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "{{Content-Type}}",
+								"description": "",
+								"warning": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						}
+					},
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "access-control-expose-headers",
+							"key": "access-control-expose-headers",
+							"value": "ETag, Link, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
+							"description": "Lets a server whitelist headers that browsers are allowed to access."
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "238",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-security-policy",
+							"key": "content-security-policy",
+							"value": "default-src 'none'",
+							"description": "Custom header"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Wed, 12 Sep 2018 10:42:42 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "referrer-policy",
+							"key": "referrer-policy",
+							"value": "origin-when-cross-origin, strict-origin-when-cross-origin",
+							"description": "Custom header"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "GitHub.com",
+							"description": "A name for the server"
+						},
+						{
+							"name": "status",
+							"key": "status",
+							"value": "422 Unprocessable Entity",
+							"description": "Custom header"
+						},
+						{
+							"name": "strict-transport-security",
+							"key": "strict-transport-security",
+							"value": "max-age=31536000; includeSubdomains; preload",
+							"description": "A HSTS Policy informing the HTTP client how long to cache the HTTPS only policy and whether this applies to subdomains."
+						},
+						{
+							"name": "x-accepted-oauth-scopes",
+							"key": "x-accepted-oauth-scopes",
+							"value": "",
+							"description": "Custom header"
+						},
+						{
+							"name": "x-content-type-options",
+							"key": "x-content-type-options",
+							"value": "nosniff",
+							"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+						},
+						{
+							"name": "x-frame-options",
+							"key": "x-frame-options",
+							"value": "deny",
+							"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
+						},
+						{
+							"name": "x-github-media-type",
+							"key": "x-github-media-type",
+							"value": "github.v3; format=json",
+							"description": "Custom header"
+						},
+						{
+							"name": "x-github-request-id",
+							"key": "x-github-request-id",
+							"value": "1C3D:4F88:EF08AE:1BCE2F8:5B98EDA2",
+							"description": "Custom header"
+						},
+						{
+							"name": "x-oauth-scopes",
+							"key": "x-oauth-scopes",
+							"value": "admin:gpg_key, admin:org, admin:org_hook, admin:public_key, admin:repo_hook, delete_repo, gist, notifications, repo, user, write:discussion",
+							"description": "Custom header"
+						},
+						{
+							"name": "x-ratelimit-limit",
+							"key": "x-ratelimit-limit",
+							"value": "5000",
+							"description": "Custom header"
+						},
+						{
+							"name": "x-ratelimit-remaining",
+							"key": "x-ratelimit-remaining",
+							"value": "4986",
+							"description": "Custom header"
+						},
+						{
+							"name": "x-ratelimit-reset",
+							"key": "x-ratelimit-reset",
+							"value": "1536750670",
+							"description": "Custom header"
+						},
+						{
+							"name": "x-runtime-rack",
+							"key": "x-runtime-rack",
+							"value": "0.106648",
+							"description": "Custom header"
+						},
+						{
+							"name": "x-xss-protection",
+							"key": "x-xss-protection",
+							"value": "1; mode=block",
+							"description": "Cross-site scripting (XSS) filter"
+						}
+					],
+					"cookie": [],
+					"responseTime": 1088,
+					"body": "{\n  \"message\": \"You cannot fork your own gist.\",\n  \"errors\": [\n    {\n      \"resource\": \"Gist\",\n      \"field\": \"forks\",\n      \"code\": \"unprocessable\"\n    }\n  ],\n  \"documentation_url\": \"https://developer.github.com/v3/gists/#fork-a-gist\"\n}\n"
+				}
+			]
+		},
+		{
+			"name": "Listing all public gists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Successful GET request\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/gists/public",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Listing all the public gists . There is no authorization needed in this case as we are listing all public gists."
+			},
+			"response": []
+		},
+		{
+			"name": "Editing a gist by deleting a file alreaady present and adding a new file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Body matches file name newly added\"] = responseBody.has(\"test_file.txt\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "{{url}}/gists/:gist_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"gists",
+						":gist_id"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "gist_id",
+							"value": "0e3dfe514dafa91cedcc6c8f060d325a"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n  \"description\": \"Deleting of gist and adding a new one\",\r\n  \"files\":{ \r\n  \t\r\n  \t\"new_file_added.txt\": null,\r\n  \t\r\n  \t\"test_file.txt\": {\r\n      \"content\": \"This is a new placeholder file.\"\r\n    }\r\n    \t\r\n    }}\r\n    \r\n    "
+				},
+				"description": ""
 			},
 			"response": []
 		}
